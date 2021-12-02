@@ -27,3 +27,19 @@ func TestParseLines2Int64(t *testing.T) {
 	_, err = ParseLines2Int([]string{"not a number", "123"})
 	assert.Error(t, err)
 }
+
+func TestParseLines2Nav1(t *testing.T) {
+	s1, err := ReadInputLines("testfiles/d2demo.txt")
+	assert.NoError(t, err)
+	hor, depth := ParseLines2Nav1(s1)
+	assert.Equal(t, 10, depth)
+	assert.Equal(t, 15, hor)
+}
+
+func TestParseLines2Nav2(t *testing.T) {
+	s1, err := ReadInputLines("testfiles/d2demo.txt")
+	assert.NoError(t, err)
+	hor, depth := ParseLines2Nav2(s1)
+	assert.Equal(t, 60, depth)
+	assert.Equal(t, 15, hor)
+}

@@ -44,3 +44,41 @@ func ParseLines2Int(lines []string) ([]int64, error) {
 	}
 	return res, nil
 }
+
+func ParseLines2Nav1(lines []string) (int, int) {
+	hor := 0
+	depth := 0
+	for _, line := range lines {
+		parts := strings.Fields(line)
+		pval, _ := strconv.Atoi(parts[1])
+		switch parts[0] {
+		case "up":
+			depth -= pval
+		case "down":
+			depth += pval
+		case "forward":
+			hor += pval
+		}
+	}
+	return hor, depth
+}
+
+func ParseLines2Nav2(lines []string) (int, int) {
+	aim := 0
+	hor := 0
+	depth := 0
+	for _, line := range lines {
+		parts := strings.Fields(line)
+		pval, _ := strconv.Atoi(parts[1])
+		switch parts[0] {
+		case "up":
+			aim -= pval
+		case "down":
+			aim += pval
+		case "forward":
+			hor += pval
+			depth += pval * aim
+		}
+	}
+	return hor, depth
+}
