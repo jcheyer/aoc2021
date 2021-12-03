@@ -17,4 +17,16 @@ func TestDay03(t *testing.T) {
 	assert.Equal(t, "198", s)
 	assert.Equal(t, "10110", d3.gamma)
 	assert.Equal(t, "01001", d3.epsilon)
+
+	most, least := d3.mostAndLeastCommonRuneAtPos(d3.rawInput, 0)
+	assert.Equal(t, uint8('1'), most)
+	assert.Equal(t, uint8('0'), least)
+
+	most, least = d3.mostAndLeastCommonRuneAtPos(d3.rawInput, 1)
+	assert.Equal(t, uint8('0'), most)
+	assert.Equal(t, uint8('1'), least)
+
+	// "fake"-Test
+	s = d3.Part2()
+	assert.Equal(t, "230", s)
 }

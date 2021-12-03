@@ -20,7 +20,7 @@ func main() {
 	challengeMap["day01"] = &challenges.Day01{}
 	challengeMap["day02"] = &challenges.Day02{}
 	challengeMap["day03"] = &challenges.Day03{}
-	challengeMap["day04"] = &challenges.Day03{}
+	challengeMap["day04"] = &challenges.Day04{}
 
 	problem, defined := challengeMap[challengeName]
 	if !defined {
