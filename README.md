@@ -10,3 +10,7 @@ Learning/Fun: start using https://github.com/spf13/cobra
 ## Day 02
 
 Easy. Need refactoring for cobra and stuff....
+
+## Day 03
+
+Remove Cobra.... learned enough and it´s "Kanonen auf Spatzen" in this context
