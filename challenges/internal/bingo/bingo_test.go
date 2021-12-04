@@ -22,4 +22,13 @@ func TestNew(t *testing.T) {
 	assert.NoError(t, err)
 	// Stichprobe
 	assert.Equal(t, int64(15), c.Fields[4][3])
+	c.MarkNumber(15)
+	assert.Equal(t, int64(-985), c.Fields[4][3])
+	assert.False(t, c.HasBingo())
+	c.MarkNumber(1)
+	c.MarkNumber(12)
+	c.MarkNumber(20)
+	c.MarkNumber(19)
+	assert.True(t, c.HasBingo())
+
 }

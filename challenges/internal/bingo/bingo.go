@@ -6,8 +6,9 @@ import (
 )
 
 type Card struct {
-	Fields [][]int64
-	loaded bool
+	Fields      [][]int64
+	readyToLoad bool
+	loaded      bool
 }
 
 func New() Card {
@@ -18,10 +19,17 @@ func New() Card {
 		fields[i] = make([]int64, size)
 	}
 
-	c := Card{Fields: fields}
+	c := Card{
+		Fields:      fields,
+		readyToLoad: true,
+	}
 	return c
 }
 func (c *Card) Setup(input []string) error {
+	if !c.readyToLoad {
+		panic("dooo")
+	}
+
 	for i, line := range input {
 		numbers := strings.Fields(line)
 		for j, number := range numbers {
@@ -40,7 +48,7 @@ func (c *Card) MarkNumber(number int64) {
 	for y := 0; y < len(c.Fields); y++ {
 		for x := 0; x < len(c.Fields[0]); x++ {
 			if c.Fields[x][y] == number {
-				c.Fields[y][x] -= convert(number)
+				c.Fields[x][y] = convert(number)
 			}
 		}
 	}
@@ -73,6 +81,18 @@ func (c *Card) HasBingo() bool {
 	}
 
 	return false
+}
+
+func (c *Card) SumNotHit() int64 {
+	var sum int64 = 0
+	for y := 0; y < len(c.Fields); y++ {
+		for x := 0; x < len(c.Fields[y]); x++ {
+			if !c.isFieldSet(x, y) {
+				sum += c.Fields[x][y]
+			}
+		}
+	}
+	return sum
 }
 
 func convert(number int64) int64 {

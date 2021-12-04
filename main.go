@@ -22,6 +22,12 @@ func main() {
 	challengeMap["day03"] = &challenges.Day03{}
 	challengeMap["day04"] = &challenges.Day04{}
 
+	/*challengeMap["day04"].Load("challenges/testfiles/d04demo.txt")
+	challengeMap["day04"].Part1()
+	challengeMap["day04"].Part2()
+
+	os.Exit(1)*/
+
 	problem, defined := challengeMap[challengeName]
 	if !defined {
 		log.Panicf("challenge not found: %s\n", challengeName)
