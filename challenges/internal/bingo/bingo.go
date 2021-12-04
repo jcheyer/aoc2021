@@ -1,5 +1,10 @@
 package bingo
 
+import (
+	"strconv"
+	"strings"
+)
+
 type Card struct {
 	Fields [][]int64
 	loaded bool
@@ -16,8 +21,19 @@ func New() Card {
 	c := Card{Fields: fields}
 	return c
 }
-func (c *Card) Setup(input string) {
+func (c *Card) Setup(input []string) error {
+	for i, line := range input {
+		numbers := strings.Fields(line)
+		for j, number := range numbers {
+			res, err := strconv.ParseInt(number, 10, 64)
+			if err != nil {
+				return err
+			}
+			c.Fields[i][j] = res
 
+		}
+	}
+	return nil
 }
 
 func (c *Card) MarkNumber(number int64) {
