@@ -14,3 +14,9 @@ Easy. Need refactoring for cobra and stuff....
 ## Day 03
 
 Remove Cobra.... learned enough and it´s "Kanonen auf Spatzen" in this context
+
+## Day 04
+
+baking cookies while programming is not very efficient...
+
+## Day 05
