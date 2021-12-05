@@ -19,10 +19,10 @@ func TestField(t *testing.T) {
 
 	assert.Equal(t, int64(0), f.Vents[0][0])
 	assert.Equal(t, int64(1), f.Vents[0][9])
-	assert.Equal(t, 0, f.VentCountGreaterOne())
+	assert.Equal(t, 0, f.VentCountGreaterOne(1))
 	f.Vents[7][7] = 5
 	f.Vents[8][8] = 5
-	assert.Equal(t, 2, f.VentCountGreaterOne())
+	assert.Equal(t, 2, f.VentCountGreaterOne(1))
 	t.Logf("%+v\n", f.Vents)
 }
 
@@ -59,14 +59,26 @@ func TestLowerFirst(t *testing.T) {
 	assert.Equal(t, 7, b)
 }
 
-func TestDemo(t *testing.T) {
+func TestDemoP1(t *testing.T) {
 	f := New(10, 10)
 	data, err := lib.ReadInputLines("./../../testfiles/d05demo.txt")
 	assert.NoError(t, err)
 	f.AddLines(data, false)
 
-	assert.Equal(t, 5, f.VentCountGreaterOne())
+	assert.Equal(t, 5, f.VentCountGreaterOne(1))
 	assert.Equal(t, int64(2), f.Vents[0][9])
 	assert.Equal(t, int64(2), f.Vents[1][9])
+
+}
+
+func TestDemoP2(t *testing.T) {
+	f := New(10, 10)
+	data, err := lib.ReadInputLines("./../../testfiles/d05demo.txt")
+	assert.NoError(t, err)
+	f.AddLines(data, true)
+	t.Logf("%s", f.String())
+	assert.Equal(t, 12, f.VentCountGreaterOne(1))
+	assert.Equal(t, int64(1), f.Vents[0][0])
+	assert.Equal(t, int64(1), f.Vents[2][0])
 
 }

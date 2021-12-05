@@ -23,16 +23,17 @@ func (d *Day05) Load(file string) error {
 		return err
 	}
 
-	d.field = vents.New(1000, 1000)
-
 	return nil
 }
 
 func (d *Day05) Part1() string {
+	d.field = vents.New(1000, 1000)
 	d.field.AddLines(d.rawInput, false)
-	return fmt.Sprintf("%d", d.field.VentCountGreaterOne())
+	return fmt.Sprintf("%d", d.field.VentCountGreaterOne(1))
 }
 
 func (d *Day05) Part2() string {
-	return "Part2 not working"
+	d.field = vents.New(1000, 1000)
+	d.field.AddLines(d.rawInput, true)
+	return fmt.Sprintf("%d", d.field.VentCountGreaterOne(1))
 }

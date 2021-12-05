@@ -20,3 +20,7 @@ Remove Cobra.... learned enough and it´s "Kanonen auf Spatzen" in this context
 baking cookies while programming is not very efficient...
 
 ## Day 05
+
+wasted lots of time for stupid bug (didn´t clear data for part2 -> double adding lines ....) :(
+
+## Day 06

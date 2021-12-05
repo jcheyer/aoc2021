@@ -30,7 +30,7 @@ func (f *Field) AddLines(lines []string, diagonal bool) {
 }
 
 func (f *Field) addLine(line string, diagonal bool) {
-	fmt.Println(line)
+	//fmt.Println(line)
 	x1, y1, x2, y2, dir := extractCoordinates(line)
 	switch dir {
 	case "diagonal":
@@ -46,10 +46,7 @@ func (f *Field) addLine(line string, diagonal bool) {
 
 func (f *Field) addVerticalLine(x1, y1, x2, y2 int) {
 	ry1, ry2 := lowerFirst(y1, y2)
-	fmt.Printf("Vertical %d %d %d %d\n", x1, ry1, x2, ry2)
 	for y := ry1; y <= ry2; y++ {
-		fmt.Printf("y %d ry1 %d ry2 %d\n", y, ry1, ry2)
-		fmt.Printf("Adding %d %d\n", x1, y)
 		f.Vents[x1][y]++
 	}
 
@@ -57,24 +54,37 @@ func (f *Field) addVerticalLine(x1, y1, x2, y2 int) {
 
 func (f *Field) addHorizontalLine(x1, y1, x2, y2 int) {
 	rx1, rx2 := lowerFirst(x1, x2)
-	fmt.Printf("Horizontal %d %d %d %d\n", rx1, y1, rx2, y2)
 	for x := rx1; x <= rx2; x++ {
-
-		fmt.Printf("x %d rx1 %d rx2 %d\n", x, rx1, rx2)
-		fmt.Printf("Adding %d %d\n", x, y1)
 		f.Vents[x][y1]++
 	}
 }
 
 func (f *Field) addDiagonalLine(x1, y1, x2, y2 int) {
-	return
+	count := x1 - x2
+	if count < 0 {
+		count = count * -1
+	}
+
+	xInc := -1
+	if x1 < x2 {
+		xInc = 1
+	}
+
+	yInc := -1
+	if y1 < y2 {
+		yInc = 1
+	}
+
+	for i := 0; i <= count; i++ {
+		f.Vents[x1+i*xInc][y1+i*yInc]++
+	}
 }
 
-func (f *Field) VentCountGreaterOne() int {
+func (f *Field) VentCountGreaterOne(limit int64) int {
 	count := 0
 	for y := 0; y < len(f.Vents); y++ {
 		for x := 0; x < len(f.Vents[0]); x++ {
-			if f.Vents[x][y] > 1 {
+			if f.Vents[x][y] > limit {
 				count++
 			}
 		}
@@ -114,4 +124,20 @@ func extractCoordinates(s string) (x1, y1, x2, y2 int, dir string) {
 
 	dir = "bad"
 	return
+}
+
+func (f *Field) String() string {
+	var sb strings.Builder
+	sb.WriteString("\n")
+	for y := 0; y < len(f.Vents); y++ {
+		for x := 0; x < len(f.Vents[0]); x++ {
+			if f.Vents[x][y] > 0 {
+				sb.WriteString(fmt.Sprintf("%d ", f.Vents[x][y]))
+			} else {
+				sb.WriteString(". ")
+			}
+		}
+		sb.WriteString("\n")
+	}
+	return sb.String()
 }
