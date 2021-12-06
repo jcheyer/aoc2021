@@ -26,11 +26,13 @@ func (d *Day06) Load(file string) error {
 }
 
 func (d *Day06) Part1() string {
-	sworm := fishes.New(d.rawInput[0])
+	sworm := fishes.NewBetterLantern(d.rawInput[0])
 	sworm.Grow(80)
-	return fmt.Sprintf("%d", len(sworm.Fishes))
+	return fmt.Sprintf("%d", sworm.Sum())
 }
 
 func (d *Day06) Part2() string {
-	return ""
+	sworm := fishes.NewBetterLantern(d.rawInput[0])
+	sworm.Grow(256)
+	return fmt.Sprintf("%d", sworm.Sum())
 }

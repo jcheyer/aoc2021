@@ -24,3 +24,8 @@ baking cookies while programming is not very efficient...
 wasted lots of time for stupid bug (didn´t clear data for part2 -> double adding lines ....) :(
 
 ## Day 06
+
+First solution was not scalable. After rethinking I found a trivial way to implement.
+
+## Day 07
+
