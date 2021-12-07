@@ -24,6 +24,9 @@ func main() {
 	challengeMap["day05"] = &challenges.Day05{}
 	challengeMap["day06"] = &challenges.Day06{}
 	challengeMap["day07"] = &challenges.Day07{}
+	challengeMap["day08"] = &challenges.Day08{}
+	challengeMap["day09"] = &challenges.Day09{}
+	challengeMap["day10"] = &challenges.Day10{}
 
 	problem, defined := challengeMap[challengeName]
 	if !defined {
