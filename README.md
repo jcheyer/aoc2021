@@ -30,5 +30,6 @@ First solution was not scalable. After rethinking I found a trivial way to imple
 ## Day 07
 
 Solution Part 1 should be fine but right now ther server is broken... waiting for input data.....
+Server is up and running again: Solution was bad, because of bad reading by me.... (Return Fuel and NOT Position)
 
-
+## Day 08

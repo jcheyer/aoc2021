@@ -49,22 +49,47 @@ func (d *Day07) Load(file string) error {
 
 func (d *Day07) Part1() string {
 	var bestFuel uint64 = math.MaxUint64
-	var bestFuelPos uint64
 	var fueldiff uint64
 
 	for pos := d.minPos; pos <= d.maxPos; pos++ {
-		fueldiff = 0
-		for _, checkPos := range d.pos {
-			fueldiff += lib.AbsDiffUInt64(checkPos, pos)
-		}
+
+		fueldiff = d.calcFuelP1(pos)
 		if fueldiff < bestFuel {
 			bestFuel = fueldiff
-			bestFuelPos = pos
 		}
+		//fmt.Printf("Pos: %d Fuel: %d\n", pos, fueldiff)
 	}
-	return fmt.Sprintf("%d", bestFuelPos)
+	return fmt.Sprintf("%d", bestFuel)
+}
+
+func (d *Day07) calcFuelP1(x uint64) uint64 {
+	var fuel uint64
+	for _, checkPos := range d.pos {
+		fuel += lib.AbsDiffUInt64(checkPos, x)
+	}
+	return fuel
+}
+
+func (d *Day07) calcFuelP2(x uint64) uint64 {
+	var fuel uint64
+	for _, checkPos := range d.pos {
+		dist := lib.AbsDiffUInt64(checkPos, x)
+		fuel += (dist*dist + dist) / 2
+	}
+	return fuel
 }
 
 func (d *Day07) Part2() string {
-	return ""
+	var bestFuel uint64 = math.MaxUint64
+	var fueldiff uint64
+
+	for pos := d.minPos; pos <= d.maxPos; pos++ {
+
+		fueldiff = d.calcFuelP2(pos)
+		if fueldiff < bestFuel {
+			bestFuel = fueldiff
+		}
+		//fmt.Printf("Pos: %d Fuel: %d\n", pos, fueldiff)
+	}
+	return fmt.Sprintf("%d", bestFuel)
 }
