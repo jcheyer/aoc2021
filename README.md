@@ -33,3 +33,8 @@ Solution Part 1 should be fine but right now ther server is broken... waiting fo
 Server is up and running again: Solution was bad, because of bad reading by me.... (Return Fuel and NOT Position)
 
 ## Day 08
+
+This was tough... not really programming but analysing combinations of 7-Segment-Displays.
+Didn´t really like it though
+
+## Day 09
