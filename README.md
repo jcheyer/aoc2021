@@ -38,3 +38,9 @@ This was tough... not really programming but analysing combinations of 7-Segment
 Didn´t really like it though
 
 ## Day 09
+
+Easy with a "border" around the input and some recursion...
+
+## Day 10
+
+
