@@ -43,4 +43,8 @@ Easy with a "border" around the input and some recursion...
 
 ## Day 10
 
+Took some time to get the best idea to follow. Stack was the right choice :)
+There are lots of beautifing options but hey..... (maybe later)
+
+## Day 11
 

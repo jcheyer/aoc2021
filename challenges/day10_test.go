@@ -12,4 +12,5 @@ func TestDay10(t *testing.T) {
 	assert.NoError(t, err)
 	assert.Len(t, d.rawInput, 10)
 	assert.Equal(t, "26397", d.Part1())
+	assert.Equal(t, "288957", d.Part2())
 }
