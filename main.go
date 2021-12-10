@@ -27,6 +27,20 @@ func main() {
 	challengeMap["day08"] = &challenges.Day08{}
 	challengeMap["day09"] = &challenges.Day09{}
 	challengeMap["day10"] = &challenges.Day10{}
+	challengeMap["day11"] = &challenges.Day11{}
+	challengeMap["day12"] = &challenges.Day12{}
+	challengeMap["day13"] = &challenges.Day13{}
+	challengeMap["day14"] = &challenges.Day14{}
+	challengeMap["day15"] = &challenges.Day15{}
+	challengeMap["day16"] = &challenges.Day16{}
+	challengeMap["day17"] = &challenges.Day17{}
+	challengeMap["day18"] = &challenges.Day18{}
+	challengeMap["day19"] = &challenges.Day19{}
+	challengeMap["day20"] = &challenges.Day20{}
+	challengeMap["day21"] = &challenges.Day21{}
+	challengeMap["day22"] = &challenges.Day22{}
+	challengeMap["day23"] = &challenges.Day23{}
+	challengeMap["day24"] = &challenges.Day24{}
 
 	problem, defined := challengeMap[challengeName]
 	if !defined {

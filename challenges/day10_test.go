@@ -8,6 +8,7 @@ import (
 
 func TestDay10(t *testing.T) {
 	d := Day10{}
+	assert.NotNil(t, d)
 	err := d.Load("testfiles/d10demo.txt")
 	assert.NoError(t, err)
 	assert.Len(t, d.rawInput, 10)
