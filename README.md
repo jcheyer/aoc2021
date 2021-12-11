@@ -48,3 +48,7 @@ There are lots of beautifing options but hey..... (maybe later)
 
 ## Day 11
 
+Easy
+
+## Day 12
+
