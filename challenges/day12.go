@@ -1,6 +1,9 @@
 package challenges
 
 import (
+	"fmt"
+
+	"github.com/jcheyer/aoc2021/challenges/internal/graph"
 	"github.com/jcheyer/aoc2021/lib"
 )
 
@@ -23,9 +26,13 @@ func (d *Day12) Load(file string) error {
 }
 
 func (d *Day12) Part1() string {
-	return "0"
+	cw := graph.New(d.rawInput)
+
+	return fmt.Sprintf("%d", cw.Solve1())
 }
 
 func (d *Day12) Part2() string {
-	return "0"
+	cw := graph.New(d.rawInput)
+
+	return fmt.Sprintf("%d", cw.Solve2())
 }

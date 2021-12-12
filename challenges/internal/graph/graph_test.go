@@ -14,5 +14,6 @@ func TestCaveWorld(t *testing.T) {
 	assert.Len(t, cw.nodes, 6)
 	assert.Len(t, cw.nodes["start"], 2)
 	assert.Len(t, cw.nodes["b"], 4)
-	assert.Equal(t, 10, cw.CountPossiblePaths())
+	assert.Equal(t, 10, cw.Solve1())
+
 }
