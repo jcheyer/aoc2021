@@ -19,7 +19,7 @@ type paper struct {
 
 func New(data []string) *paper {
 	p := paper{
-		dots:  make(map[coord]bool, 0),
+		dots:  make(map[coord]bool),
 		Folds: make([]coord, 0),
 	}
 
@@ -67,7 +67,7 @@ func (p *paper) Fold(fold coord) {
 
 func (p *paper) foldX(x int) {
 	doubeX := 2 * x
-	for k, _ := range p.dots {
+	for k := range p.dots {
 		if k.x > x {
 			newX := doubeX - k.x
 			p.dots[coord{x: newX, y: k.y}] = true
@@ -80,7 +80,7 @@ func (p *paper) foldX(x int) {
 func (p *paper) foldY(y int) {
 
 	doubeY := 2 * y
-	for k, _ := range p.dots {
+	for k := range p.dots {
 		if k.y > y {
 			newY := doubeY - k.y
 			p.dots[coord{x: k.x, y: newY}] = true
@@ -93,7 +93,7 @@ func (p *paper) foldY(y int) {
 func (p *paper) String() string {
 	var sizeX, sizeY int
 
-	for k, _ := range p.dots {
+	for k := range p.dots {
 		sizeX = lib.HighInt(sizeX, k.x)
 		sizeY = lib.HighInt(sizeY, k.y)
 	}
