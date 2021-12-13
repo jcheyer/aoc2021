@@ -55,3 +55,8 @@ Easy
 Cheated.... had the right idea with data structure but didn´t get the recursion right...
 Had to do some working besides AOC2021 so I took the work from https://github.com/pvainio/adventofcode/blob/main/2021/go/d12/main.go 
 
+## Day 13
+
+That was fun and not too hard to implement...
+
+## Day 14
