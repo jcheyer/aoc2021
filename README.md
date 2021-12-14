@@ -60,3 +60,7 @@ Had to do some working besides AOC2021 so I took the work from https://github.co
 That was fun and not too hard to implement...
 
 ## Day 14
+
+Again a "does not scale" challenge.... have to rethink my structures.
+
+## Day 15

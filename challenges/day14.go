@@ -1,6 +1,9 @@
 package challenges
 
 import (
+	"fmt"
+
+	"github.com/jcheyer/aoc2021/challenges/internal/polymer"
 	"github.com/jcheyer/aoc2021/lib"
 )
 
@@ -23,7 +26,14 @@ func (d *Day14) Load(file string) error {
 }
 
 func (d *Day14) Part1() string {
-	return "0"
+	p := polymer.New(d.rawInput)
+	s := p.Base
+	for i := 0; i < 10; i++ {
+		s = p.Do(s)
+	}
+	h, l := polymer.HighLow(polymer.ComponentCount(s))
+
+	return fmt.Sprintf("%d", h-l)
 }
 
 func (d *Day14) Part2() string {
