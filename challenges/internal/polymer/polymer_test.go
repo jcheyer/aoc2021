@@ -12,23 +12,22 @@ func TestPolymerizer(t *testing.T) {
 	assert.NoError(t, err)
 	poly := New(data)
 	assert.Equal(t, "NNCB", poly.Base)
-	assert.Len(t, poly.rules, 16)
-	assert.Equal(t, "NCNBCHB", poly.Do("NNCB"))
-	assert.Equal(t, "NBCCNBBBCBHCB", poly.Do("NCNBCHB"))
-	s := "NNCB"
-	for i := 0; i < 10; i++ {
-		s = poly.Do(s)
-	}
-	assert.Len(t, s, 3073)
-	h, l := HighLow(ComponentCount(s))
+	assert.Len(t, poly.Rules, 16)
+	assert.Len(t, poly.poly, 3)
+	h, l := poly.Do(10)
+	//h, l := poly.Do(10)
+	/*poly.do()
+	spew.Dump(poly.poly)
+	assert.Len(t, poly.poly, 6)
+	spew.Dump(poly.poly)
+	assert.Equal(t, poly.poly, poly.stringToPoly("NCNBCHB"))
+	poly.do()
+	assert.Equal(t, poly.poly, poly.stringToPoly("NBCCNBBBCBHCB"))
+	poly.do()
+	assert.Equal(t, poly.poly, poly.stringToPoly("NBBBCNCCNBBNBNBBCHBHHBCHB"))
+	assert.Equal(t, poly.poly, poly.stringToPoly("NBBNBNBBCCNBCNCCNBBNBBNBBBNBBNBBCBHCBHHNHCBBCBHCB"))*/
+
 	assert.Equal(t, h, 1749)
 	assert.Equal(t, l, 161)
-
-	for i := 0; i < 30; i++ {
-		s = poly.Do(s)
-	}
-	h, l = HighLow(ComponentCount(s))
-	assert.Equal(t, h, 2192039569602)
-	assert.Equal(t, l, 3849876073)
 
 }

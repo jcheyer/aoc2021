@@ -62,5 +62,6 @@ That was fun and not too hard to implement...
 ## Day 14
 
 Again a "does not scale" challenge.... have to rethink my structures.
+After thinking: Don´t work on a string but on count of rune-pairs as you just need the count of runes at the end.
 
 ## Day 15

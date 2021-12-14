@@ -27,15 +27,16 @@ func (d *Day14) Load(file string) error {
 
 func (d *Day14) Part1() string {
 	p := polymer.New(d.rawInput)
-	s := p.Base
-	for i := 0; i < 10; i++ {
-		s = p.Do(s)
-	}
-	h, l := polymer.HighLow(polymer.ComponentCount(s))
+
+	h, l := p.Do(10)
 
 	return fmt.Sprintf("%d", h-l)
 }
 
 func (d *Day14) Part2() string {
-	return "0"
+	p := polymer.New(d.rawInput)
+
+	h, l := p.Do(40)
+
+	return fmt.Sprintf("%d", h-l)
 }
