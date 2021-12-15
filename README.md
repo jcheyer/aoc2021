@@ -65,3 +65,9 @@ Again a "does not scale" challenge.... have to rethink my structures.
 After thinking: Don´t work on a string but on count of rune-pairs as you just need the count of runes at the end.
 
 ## Day 15
+
+Puuuuh, dijkstra is the solution.
+After extending the graph to the Part2 dimension my solution for Part1 is now wrong. I guess there is a path outside of the Part1 boundery which is now shorter than the correct answer.
+Assumption was right, I intruduced a multiply parameter and now the solution is correct.
+
+## Day 16

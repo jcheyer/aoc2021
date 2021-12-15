@@ -1,6 +1,9 @@
 package challenges
 
 import (
+	"fmt"
+
+	"github.com/jcheyer/aoc2021/challenges/internal/pathfinder"
 	"github.com/jcheyer/aoc2021/lib"
 )
 
@@ -23,9 +26,20 @@ func (d *Day15) Load(file string) error {
 }
 
 func (d *Day15) Part1() string {
-	return "0"
+	pf, err := pathfinder.New(d.rawInput, 1)
+	if err != nil {
+		panic(err)
+	}
+
+	return fmt.Sprintf("%d", pf.Best1())
+
 }
 
 func (d *Day15) Part2() string {
-	return "0"
+	pf, err := pathfinder.New(d.rawInput, 5)
+	if err != nil {
+		panic(err)
+	}
+
+	return fmt.Sprintf("%d", pf.Best2())
 }
