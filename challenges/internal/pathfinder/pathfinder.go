@@ -7,23 +7,22 @@ import (
 )
 
 type pathFinder struct {
-	d     *dijkstra.Graph
-	data  [][]uint8
-	mult  int
-	sizeX int
-	sizeY int
-	planX int
-	planY int
+	d            *dijkstra.Graph
+	data         [][]uint8
+	naturalSizeX int
+	naturalSizeY int
+	mult         int
+	sizeX        int
+	sizeY        int
 }
 
 func New(data []string, extend int) (*pathFinder, error) {
-
 	pf := &pathFinder{
-		mult:  extend,
-		sizeX: len(data[0]) * extend,
-		sizeY: len(data) * extend,
-		planX: len(data[0]),
-		planY: len(data),
+		naturalSizeX: len(data[0]),
+		naturalSizeY: len(data),
+		mult:         extend,
+		sizeX:        len(data[0]) * extend,
+		sizeY:        len(data) * extend,
 	}
 
 	arc, err := parseLines2Int(data)
@@ -34,6 +33,7 @@ func New(data []string, extend int) (*pathFinder, error) {
 
 	pf.d = dijkstra.NewGraph()
 
+	// Create all vertex
 	for y := 0; y < pf.sizeY; y++ {
 		for x := 0; x < pf.sizeX; x++ {
 			vid := pf.coord2vertex(x, y)
@@ -42,31 +42,32 @@ func New(data []string, extend int) (*pathFinder, error) {
 		}
 	}
 
+	// Add all arcs
 	for y := 0; y < pf.sizeY; y++ {
 		for x := 0; x < pf.sizeX; x++ {
 			if y < pf.sizeY-1 {
-				err := pf.d.AddArc(pf.coord2vertex(x, y), pf.coord2vertex(x, y+1), int64(val(arc, x, y+1)))
+				err := pf.d.AddArc(pf.coord2vertex(x, y), pf.coord2vertex(x, y+1), pf.val(x, y+1))
 				if err != nil {
 					return pf, err
 				}
 			}
 
 			if y != 0 {
-				err := pf.d.AddArc(pf.coord2vertex(x, y), pf.coord2vertex(x, y-1), int64(val(arc, x, y-1)))
+				err := pf.d.AddArc(pf.coord2vertex(x, y), pf.coord2vertex(x, y-1), pf.val(x, y-1))
 				if err != nil {
 					return pf, err
 				}
 			}
 
 			if x != 0 {
-				err := pf.d.AddArc(pf.coord2vertex(x, y), pf.coord2vertex(x-1, y), int64(val(arc, x-1, y)))
+				err := pf.d.AddArc(pf.coord2vertex(x, y), pf.coord2vertex(x-1, y), pf.val(x-1, y))
 				if err != nil {
 					return pf, err
 				}
 			}
 
 			if x < pf.sizeX-1 {
-				err := pf.d.AddArc(pf.coord2vertex(x, y), pf.coord2vertex(x+1, y), int64(val(arc, x+1, y)))
+				err := pf.d.AddArc(pf.coord2vertex(x, y), pf.coord2vertex(x+1, y), pf.val(x+1, y))
 				if err != nil {
 					return pf, err
 				}
@@ -78,13 +79,11 @@ func New(data []string, extend int) (*pathFinder, error) {
 }
 
 func (pf *pathFinder) coord2vertex(x, y int) int {
-	//return fmt.Sprintf("%d-%d", x, y)
-
 	return pf.sizeX*(y) + x
 }
 
 func (pf *pathFinder) Best1() int {
-	p, _ := pf.d.Shortest(0, pf.coord2vertex(pf.planX-1, pf.planY-1))
+	p, _ := pf.d.Shortest(0, pf.coord2vertex(pf.naturalSizeX-1, pf.naturalSizeY-1))
 	return int(p.Distance)
 }
 
@@ -106,9 +105,6 @@ func parseLines2Int(lines []string) ([][]uint8, error) {
 			}
 
 			row[i] = uint8(x)
-			if err != nil {
-				return field, err
-			}
 		}
 
 		field = append(field, row)
@@ -125,20 +121,21 @@ func gen(i uint8, count int) uint8 {
 	return res
 }
 
-func val(arc [][]uint8, x, y int) uint8 {
+func (pf *pathFinder) val(x, y int) int64 {
 	rx := x
 	multX := 0
-	if x >= len(arc[0]) {
-		multX = x / len(arc[0])
-		rx = x % len(arc[0])
+	if x >= pf.naturalSizeX {
+		multX = x / pf.naturalSizeX
+		rx = x % pf.naturalSizeX
 	}
+
 	ry := y
 	multY := 0
-	if y >= len(arc) {
-		multY = y / len(arc)
-		ry = y % len(arc)
+	if y >= pf.naturalSizeY {
+		multY = y / pf.naturalSizeY
+		ry = y % pf.naturalSizeY
 	}
-	//fmt.Printf("x: %d y: %d rx:%d ry: %d multX: %d multY: %d\n", x, y, rx, ry, multX, multY)
-	val := gen(arc[ry][rx], multX+multY)
-	return val
+
+	val := gen(pf.data[ry][rx], multX+multY)
+	return int64(val)
 }
