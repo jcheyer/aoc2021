@@ -1,6 +1,9 @@
 package challenges
 
 import (
+	"fmt"
+
+	"github.com/jcheyer/aoc2021/challenges/internal/packetdecoder"
 	"github.com/jcheyer/aoc2021/lib"
 )
 
@@ -23,9 +26,12 @@ func (d *Day16) Load(file string) error {
 }
 
 func (d *Day16) Part1() string {
-	return "0"
+	decoder := packetdecoder.New(d.rawInput[0])
+	fmt.Printf("rawLen: %+v binLen: %+v\n", len(d.rawInput[0]), len(decoder.Bitstream))
+	packet, _ := decoder.Parse(0)
+	return fmt.Sprintf("%d", packet.Versions())
 }
 
 func (d *Day16) Part2() string {
-	return "0"
+	return "Maybe tomorrow....."
 }

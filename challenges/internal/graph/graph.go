@@ -92,6 +92,7 @@ func alreadyMaxVisits(visited map[string]byte, cave string, maxSingleSmallVisits
 	return false
 }
 
-func addLink(links linkMap, a string, b string) {
+/*func addLink(links linkMap, a string, b string) {
 	links[a] = append(links[a], b)
 }
+*/
