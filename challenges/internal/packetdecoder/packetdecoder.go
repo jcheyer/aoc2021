@@ -142,45 +142,56 @@ func (p *packet) Versions() int {
 }
 
 func (p *packet) Eval() int64 {
+	if p.typeID == 4 {
+		return int64(p.literalValue)
+	}
+
+	values := []int64{}
+
+	// recursively check nested packets
+	for _, sub := range p.sub {
+		values = append(values, sub.Eval())
+	}
+
 	switch p.typeID {
 	case 0:
 		sum := int64(0)
-		for _, s := range p.sub {
-			sum += s.Eval()
+		for _, v := range values {
+			sum += v
 		}
 		return sum
 	case 1:
 		prod := int64(1)
-		for _, s := range p.sub {
-			prod *= s.Eval()
+		for _, v := range values {
+			prod *= v
 		}
 		return prod
 	case 2:
 		min := int64(math.MaxInt64)
-		for _, s := range p.sub {
-			min = lib.LowInt64(min, s.Eval())
+		for _, v := range values {
+			min = lib.LowInt64(min, v)
 		}
 		return min
 	case 3:
-		max := int64(0)
-		for _, s := range p.sub {
-			max = lib.HighInt64(max, s.Eval())
+		max := int64(math.MinInt64)
+		for _, v := range values {
+			max = lib.HighInt64(max, v)
 		}
 		return max
-	case 4:
-		return int64(p.literalValue)
+	/*case 4:
+	return int64(p.literalValue)*/
 	case 5:
-		if p.sub[0].Eval() > p.sub[1].Eval() {
+		if values[0] > values[1] {
 			return 1
 		}
 		return 0
 	case 6:
-		if p.sub[0].Eval() < p.sub[1].Eval() {
+		if values[0] < values[1] {
 			return 1
 		}
 		return 0
 	case 7:
-		if p.sub[0].Eval() == p.sub[1].Eval() {
+		if values[0] == values[1] {
 			return 1
 		}
 		return 0

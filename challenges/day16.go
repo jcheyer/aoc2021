@@ -36,5 +36,5 @@ func (d *Day16) Part2() string {
 	decoder := packetdecoder.New(d.rawInput[0])
 
 	packet, _ := decoder.Parse(0)
-	return fmt.Sprintf("%d", packet.Eval())
+	return fmt.Sprintf("%+v", packet.Eval())
 }
