@@ -5,13 +5,6 @@ const MinUint = 0
 const MaxInt = int(MaxUint >> 1)
 const MinInt = -MaxInt - 1
 
-func HighUInt64(a uint64, b uint64) uint64 {
-	if a > b {
-		return a
-	}
-	return b
-}
-
 func HighInt(a int, b int) int {
 	if a > b {
 		return a
@@ -21,6 +14,13 @@ func HighInt(a int, b int) int {
 
 func LowInt(a int, b int) int {
 	if a < b {
+		return a
+	}
+	return b
+}
+
+func HighUInt64(a uint64, b uint64) uint64 {
+	if a > b {
 		return a
 	}
 	return b
@@ -39,4 +39,18 @@ func AbsDiffUInt64(a, b uint64) uint64 {
 	}
 
 	return b - a
+}
+
+func HighInt64(a int64, b int64) int64 {
+	if a > b {
+		return a
+	}
+	return b
+}
+
+func LowInt64(a int64, b int64) int64 {
+	if a < b {
+		return a
+	}
+	return b
 }

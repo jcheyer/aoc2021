@@ -88,12 +88,41 @@ func TestDecoderOperator1(t *testing.T) {
 	assert.Equal(t, 3, p.sub[2].literalValue)
 }
 
-func shim(a, b interface{}) []interface{} {
-	return []interface{}{a, b}
+func TestEval(t *testing.T) {
+	d := New("C200B40A82")
+	p, _ := d.Parse(0)
+	assert.Equal(t, int64(3), p.Eval())
+
+	d = New("04005AC33890")
+	p, _ = d.Parse(0)
+	assert.Equal(t, int64(54), p.Eval())
+
+	d = New("880086C3E88112")
+	p, _ = d.Parse(0)
+	assert.Equal(t, int64(7), p.Eval())
+
+	d = New("CE00C43D881120")
+	p, _ = d.Parse(0)
+	assert.Equal(t, int64(9), p.Eval())
+
+	d = New("D8005AC2A8F0")
+	p, _ = d.Parse(0)
+	assert.Equal(t, int64(1), p.Eval())
+
+	d = New("F600BC2D8F")
+	p, _ = d.Parse(0)
+	assert.Equal(t, int64(0), p.Eval())
+
+	d = New("9C005AC2F8F0")
+	p, _ = d.Parse(0)
+	assert.Equal(t, int64(0), p.Eval())
+
+	d = New("9C0141080250320F1802104A08")
+	p, _ = d.Parse(0)
+	assert.Equal(t, int64(1), p.Eval())
+
 }
 
-func TestIsOnlyZero(t *testing.T) {
-	d := New("A00")
-	assert.Equal(t, "101000000000", d.Bitstream)
-	assert.True(t, d.isOnlyZero(4, 8))
+func shim(a, b interface{}) []interface{} {
+	return []interface{}{a, b}
 }

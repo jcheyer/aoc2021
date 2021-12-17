@@ -2,8 +2,11 @@ package packetdecoder
 
 import (
 	"fmt"
+	"math"
 	"strconv"
 	"strings"
+
+	"github.com/jcheyer/aoc2021/lib"
 )
 
 type packet struct {
@@ -15,9 +18,6 @@ type packet struct {
 
 type decoder struct {
 	Bitstream string
-	//pos       int
-	//versionSum int
-
 }
 
 func New(s string) *decoder {
@@ -51,8 +51,6 @@ func (d *decoder) parseLiteral(pos int) (packet, int) {
 	p := packet{}
 	p.version, p.typeID = d.parseHeader(pos)
 
-	fmt.Printf("Literal Packet at pos %+v version: %+v type: %+v\n", pos, p.version, p.typeID)
-
 	i := pos + 6
 	value := ""
 	count := 0
@@ -71,11 +69,6 @@ func (d *decoder) parseLiteral(pos int) (packet, int) {
 	p.literalValue = int(lv)
 
 	len := 6 + count
-	//padding := count % 4
-	//len := 6 + count + padding - 1
-	//d.pos = pos + len
-	//d.packets = append(d.packets, p)
-	//d.versionSum += p.version
 
 	return p, len
 }
@@ -85,16 +78,13 @@ func (d *decoder) parseOperator(pos int) (packet, int) {
 	start := pos
 	p := packet{}
 	p.version, p.typeID = d.parseHeader(pos)
-	fmt.Printf("Operator Packet at pos %+v version: %+v type: %+v\n", pos, p.version, p.typeID)
+
 	switch d.Bitstream[pos+6] {
 	case '0':
 		pos += 7
 		total, _ := strconv.ParseInt(d.Bitstream[pos:pos+15], 2, 0)
 		pos += 15
 
-		fmt.Printf("length mode start: %+v total: %+v\n", start, total)
-
-		//packets := make([]packet, 0)
 		p.sub = make([]packet, 0)
 		for total > 0 {
 
@@ -105,22 +95,15 @@ func (d *decoder) parseOperator(pos int) (packet, int) {
 			total -= int64(len)
 
 			pos += len
-			//if d.isOnlyZero(pos, int(total)) {
-			// 	return p, pos - start + int(total)
-			//}
 
 		}
 		len := pos - start
-		//padding := len % 8
-		//panic("this is bad")
 
 		return p, len
 	case '1':
 		pos += 7
 		n, _ := strconv.ParseInt(d.Bitstream[pos:pos+11], 2, 0)
 		pos += 11
-
-		//fmt.Printf("packet count mode: start: %+v n: %+v\n", start, n)
 
 		packets := make([]packet, 0)
 		for i := 0; i < int(n); i++ {
@@ -130,8 +113,7 @@ func (d *decoder) parseOperator(pos int) (packet, int) {
 		}
 		p.sub = packets
 		len := pos - start
-		//padding := len % 8
-		//return p, len + 8 - padding
+
 		return p, len
 	}
 	panic("woong length type ID")
@@ -159,9 +141,51 @@ func (p *packet) Versions() int {
 	return result
 }
 
-func (d *decoder) isOnlyZero(pos, len int) bool {
-	fmt.Printf("comp called !!! pos: %+v len: %+v\n", pos, len)
-	comp := strings.Repeat("0", len)
-	fmt.Printf("comp := %s bitstreamsub: %s isZero: %+v\n", comp, d.Bitstream[pos:pos+len], d.Bitstream[pos:pos+len] == comp)
-	return d.Bitstream[pos:pos+len] == comp
+func (p *packet) Eval() int64 {
+	switch p.typeID {
+	case 0:
+		sum := int64(0)
+		for _, s := range p.sub {
+			sum += s.Eval()
+		}
+		return sum
+	case 1:
+		prod := int64(1)
+		for _, s := range p.sub {
+			prod *= s.Eval()
+		}
+		return prod
+	case 2:
+		min := int64(math.MaxInt64)
+		for _, s := range p.sub {
+			min = lib.LowInt64(min, s.Eval())
+		}
+		return min
+	case 3:
+		max := int64(0)
+		for _, s := range p.sub {
+			max = lib.HighInt64(max, s.Eval())
+		}
+		return max
+	case 4:
+		return int64(p.literalValue)
+	case 5:
+		if p.sub[0].Eval() > p.sub[1].Eval() {
+			return 1
+		}
+		return 0
+	case 6:
+		if p.sub[0].Eval() < p.sub[1].Eval() {
+			return 1
+		}
+		return 0
+	case 7:
+		if p.sub[0].Eval() == p.sub[1].Eval() {
+			return 1
+		}
+		return 0
+	}
+
+	panic("eval error")
+	return 0
 }

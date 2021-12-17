@@ -27,11 +27,14 @@ func (d *Day16) Load(file string) error {
 
 func (d *Day16) Part1() string {
 	decoder := packetdecoder.New(d.rawInput[0])
-	fmt.Printf("rawLen: %+v binLen: %+v\n", len(d.rawInput[0]), len(decoder.Bitstream))
+
 	packet, _ := decoder.Parse(0)
 	return fmt.Sprintf("%d", packet.Versions())
 }
 
 func (d *Day16) Part2() string {
-	return "Maybe tomorrow....."
+	decoder := packetdecoder.New(d.rawInput[0])
+
+	packet, _ := decoder.Parse(0)
+	return fmt.Sprintf("%d", packet.Eval())
 }
