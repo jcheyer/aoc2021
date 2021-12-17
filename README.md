@@ -74,3 +74,10 @@ Assumption was right, I introduced a multiply parameter and now the solution is 
 
 Ouch.... misinterpreted the padding stuff (used it on packet level..) and lots of classic "off by one" problems.
 Finally made part 1 and I couldn't care less for part 2 right now
+
+## Day 17
+
+That was straight forward... may I'll take a look at Day16P2 ?!?
+
+## Day 18
+
