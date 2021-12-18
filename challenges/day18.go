@@ -1,6 +1,9 @@
 package challenges
 
 import (
+	"fmt"
+
+	"github.com/jcheyer/aoc2021/challenges/internal/snailfishmath"
 	"github.com/jcheyer/aoc2021/lib"
 )
 
@@ -23,7 +26,12 @@ func (d *Day18) Load(file string) error {
 }
 
 func (d *Day18) Part1() string {
-	return "0"
+	n := snailfishmath.New(d.rawInput[0])
+	for i := 1; i < len(d.rawInput); i++ {
+		add := snailfishmath.New(d.rawInput[i])
+		n = n.Add(add)
+	}
+	return fmt.Sprintf("%d", n.Magnitude())
 }
 
 func (d *Day18) Part2() string {

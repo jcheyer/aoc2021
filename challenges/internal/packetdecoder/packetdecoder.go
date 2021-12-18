@@ -198,5 +198,5 @@ func (p *packet) Eval() int64 {
 	}
 
 	panic("eval error")
-	return 0
+
 }

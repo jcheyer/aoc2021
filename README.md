@@ -83,3 +83,8 @@ That was straight forward... may I'll take a look at Day16P2 ?!?
 
 ## Day 18
 
+This is getting crazy ....
+Part 2 skipped for the moment.
+
+## Day 19
+
