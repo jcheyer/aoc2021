@@ -88,3 +88,8 @@ Part 2 skipped for the moment.
 
 ## Day 19
 
+
+## Day 20
+
+Took some time to see that algo[0] = # which requires special handling. I called it the b****Mode.
+
