@@ -1,6 +1,8 @@
 package scanner
 
-import "fmt"
+import (
+	"github.com/jcheyer/aoc2021/lib"
+)
 
 type coord struct {
 	x, y, z int
@@ -13,36 +15,32 @@ type scanner struct {
 	beacons []beacon
 }
 
-func New(s []string) []scanner {
+func New(s []string) *[]scanner {
+	chunks := lib.Chunks(s)
 	scanners := make([]scanner, 0)
 
-	i := 0
-	for i < len(s) {
-
-		sc := scanner{
-			beacons: make([]beacon, 0),
-			ident:   s[i],
-		}
-		fmt.Printf("i: %d New Scanner  %+v\n", i, sc)
-		i++ // scannerID
-		for ; i < len(s); i++ {
-			if s[i] == "" {
-				fmt.Printf("Scanner %s done\n", sc.ident)
-				i++
-				scanners = append(scanners, sc)
-
-				break
-
-			}
-			b, err := NewBeacon(s[i])
-			if err != nil {
-				panic(err)
-			}
-			sc.beacons = append(sc.beacons, b)
-			fmt.Printf("i: %d beacon added %+v\n", i, sc)
-		}
-
+	i := 1
+	for i < len(chunks) {
+		sc := newScanner(chunks[i])
+		scanners = append(scanners, sc)
 	}
 
-	return scanners
+	scanners[0].root = true
+	return &scanners
+}
+
+func newScanner(s []string) scanner {
+	sc := scanner{
+		ident:   s[0],
+		beacons: make([]beacon, 0),
+	}
+	i := 1
+	for i < len(s) {
+		b, err := NewBeacon(s[i])
+		if err != nil {
+			panic(err)
+		}
+		sc.beacons = append(sc.beacons, b)
+	}
+	return sc
 }

@@ -13,5 +13,4 @@ func TestNew(t *testing.T) {
 
 	sc := New(data)
 	assert.Len(t, sc, 5)
-
 }

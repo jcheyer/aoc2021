@@ -1,6 +1,9 @@
 package challenges
 
 import (
+	"fmt"
+
+	"github.com/jcheyer/aoc2021/challenges/internal/diracdice"
 	"github.com/jcheyer/aoc2021/lib"
 )
 
@@ -23,7 +26,15 @@ func (d *Day21) Load(file string) error {
 }
 
 func (d *Day21) Part1() string {
-	return "0"
+	//Player 1 starting position: 8
+	//Player 2 starting position: 6
+	dice := diracdice.NewDDice(0)
+	g := diracdice.NewGame(8, 6, dice)
+	for g.Winner() == 0 {
+		g.Turn()
+	}
+	return fmt.Sprintf("%d", g.Score())
+
 }
 
 func (d *Day21) Part2() string {
