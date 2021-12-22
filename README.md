@@ -100,3 +100,6 @@ Part one was like: far too easy.... Part 2 will be crazy. And Part 2 was crazy a
 
 ## Day 22
 
+Did the obvious solution for part1 with the apodictic certainty that it will not be usable for part2...
+
+## Day 23

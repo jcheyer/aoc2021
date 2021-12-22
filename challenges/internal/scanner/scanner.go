@@ -11,7 +11,6 @@ type coord struct {
 type scanner struct {
 	ident   string
 	root    bool
-	absPos  coord
 	beacons []beacon
 }
 
